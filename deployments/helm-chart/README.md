@@ -27,12 +27,12 @@ This chart deploys the NGINX Ingress controller in your Kubernetes cluster.
 
     For NGINX:
     ```
-    $ helm install nginx-edge/nginx-ingress --name my-release
+    $ helm install nginx-edge/nginx-ingress my-release
     ```
 
     For NGINX Plus (assuming you have pushed the Ingress controller image `nginx-plus-ingress` to your private registry `myregistry.example.com`):
     ```
-    $ helm install nginx-edge/nginx-ingress --name my-release --set controller.image.repository=myregistry.example.com/nginx-plus-ingress --set controller.nginxplus=true
+    $ helm install nginx-edge/nginx-ingress my-release --set controller.image.repository=myregistry.example.com/nginx-plus-ingress --set controller.nginxplus=true
     ```
 
 ### Installing Using Chart Sources
