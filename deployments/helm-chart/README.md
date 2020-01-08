@@ -25,27 +25,27 @@ This chart deploys the NGINX Ingress controller in your Kubernetes cluster.
 
 2. To install the chart with the release name my-release (my-release is the name that you choose):
 
-    a. Using Helm 3.x client
+    * Using Helm 3.x client:
 
         For NGINX:
-        ```
+        ```console
         $ helm install my-release nginx-edge/nginx-ingress
         ```
 
         For NGINX Plus: (assuming you have pushed the Ingress controller image `nginx-plus-ingress` to your private registry `myregistry.example.com`)
-        ```
+        ```console
         $ helm install my-release nginx-edge/nginx-ingress --set controller.image.repository=myregistry.example.com/nginx-plus-ingress --set controller.nginxplus=true
         ```
 
-    b. Using Helm 2.x client
+    * Using Helm 2.x client:
 
         For NGINX:
-        ```
+        ```console
         $ helm install --name my-release nginx-edge/nginx-ingress
         ```
 
         For NGINX Plus: (assuming you have pushed the Ingress controller image `nginx-plus-ingress` to your private registry `myregistry.example.com`)
-        ```
+        ```console
         $ helm install --name my-release nginx-edge/nginx-ingress --set controller.image.repository=myregistry.example.com/nginx-plus-ingress --set controller.nginxplus=true
         ```
 
@@ -62,7 +62,8 @@ This chart deploys the NGINX Ingress controller in your Kubernetes cluster.
 
 3. To install the chart with the release name my-release (my-release is the name that you choose):
 
-    a. Using Helm 3.x client
+    * Using Helm 3.x client:
+
         For NGINX:
         ```console
         $ helm install my-release .
@@ -73,7 +74,9 @@ This chart deploys the NGINX Ingress controller in your Kubernetes cluster.
         $ helm install my-release -f values-plus.yaml .
         ```
 
-    b. Using Helm 2.x client For NGINX:
+    * Using Helm 2.x client:
+
+        For NGINX:
         ```console
         $ helm install --name my-release .
         ```
@@ -91,11 +94,19 @@ This chart deploys the NGINX Ingress controller in your Kubernetes cluster.
 
 ## Uninstalling the Chart
 
-To uninstall the release `my-release`
+To uninstall/delete the release `my-release`
 
-```console
-$ helm uninstall my-release
-```
+* Using Helm 3.x client:
+
+    ```console
+    $ helm uninstall my-release
+    ```
+
+* Using Helm 2.x client:
+
+    ```console
+    $ helm delete my-release
+    ```
 
 The command removes all the Kubernetes components associated with the chart and deletes the release.
 
