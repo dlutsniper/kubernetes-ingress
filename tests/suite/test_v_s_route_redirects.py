@@ -25,14 +25,14 @@ class TestVSRRedirects:
                                             ingress_controller_prerequisites.namespace)
         assert 'return 307 ' in config and 'return 301 ' in config
 
-    def test_custom_canned_response(self, kube_apis, crd_ingress_controller, v_s_route_setup):
+    def test_custom_redirect(self, kube_apis, crd_ingress_controller, v_s_route_setup):
         req_host = f"{v_s_route_setup.public_endpoint.public_ip}:{v_s_route_setup.public_endpoint.port}"
         req_url = f"http://{req_host}{v_s_route_setup.route_m.paths[0]}?arg1=arg"
         wait_and_assert_status_code(307, req_url, v_s_route_setup.vs_host, allow_redirects=False)
         resp = requests.get(req_url, headers={"host": v_s_route_setup.vs_host}, allow_redirects=False)
         assert resp.headers['location'] == "http://example.com"
 
-    def test_default_canned_response(self, kube_apis, crd_ingress_controller, v_s_route_setup):
+    def test_default_redirect(self, kube_apis, crd_ingress_controller, v_s_route_setup):
         req_host = f"{v_s_route_setup.public_endpoint.public_ip}:{v_s_route_setup.public_endpoint.port}"
         req_url = f"http://{req_host}{v_s_route_setup.route_m.paths[1]}"
         wait_and_assert_status_code(301, req_url, v_s_route_setup.vs_host, allow_redirects=False)
@@ -43,11 +43,11 @@ class TestVSRRedirects:
         req_host = f"{v_s_route_setup.public_endpoint.public_ip}:{v_s_route_setup.public_endpoint.port}"
         req_url_1 = f"http://{req_host}{v_s_route_setup.route_m.paths[0]}"
         req_url_2 = f"http://{req_host}{v_s_route_setup.route_m.paths[1]}"
-        wait_before_test(1)
         vs_name = f"{v_s_route_setup.namespace}/{v_s_route_setup.vs_name}"
         vsr_name = f"{v_s_route_setup.namespace}/{v_s_route_setup.route_m.name}"
-        vsr_event_text = f"Configuration for {vsr_name} was added or updated"
         vs_event_text = f"Configuration for {vs_name} was added or updated"
+        vsr_event_text = f"Configuration for {vsr_name} was added or updated"
+        wait_before_test(1)
         events_ns = get_events(kube_apis.v1, v_s_route_setup.namespace)
         initial_count_vs = assert_event_and_get_count(vs_event_text, events_ns)
         initial_count_vsr = assert_event_and_get_count(vsr_event_text, events_ns)

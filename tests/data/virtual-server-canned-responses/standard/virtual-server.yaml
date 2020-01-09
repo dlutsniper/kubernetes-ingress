@@ -40,7 +40,7 @@ spec:
       return:
         code:
         type:
-        body: >
+        body: |
           line1
           line2
           line3
